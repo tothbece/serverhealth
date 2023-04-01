@@ -17,7 +17,9 @@ export class AppComponent {
   public loadData() {
     this.service.getServerHealth().subscribe((res:any) => {
       this.data = res;
-      console.log(res);
+      this.data!.freeMemory /= 1024*1024;
+      this.data!.totalMemory /= 1024*1024;
+      this.data!.uptime /= 60;
     });
   }
 

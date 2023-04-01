@@ -9,7 +9,17 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Current data</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <div *ngIf="data != null" class="card-text">
+            <ul>
+              <li>CPU usage (user): {{data.cpuUsage.user}}</li>
+              <li>CPU usage (system): {{data.cpuUsage.system}}</li>
+              <li>Free memory: {{data.freeMemory | number:'1.2-2'}} MB ({{ (data.freeMemory / data.totalMemory * 100) | number:'1.2-2' }} %)</li>
+              <li>Total memory: {{data.totalMemory | number:'1.2-2'}} MB</li>
+              <li>Uptime: {{data.uptime | number:'1.2-2'}} min</li>
+            </ul>
+          </div>
+          <p *ngIf="data == null" class="text-danger">No data provided.</p>
+          <button class="btn btn-sm btn-warning" (click)="loadData()">Reload</button>
         </div>
       </div>
 
