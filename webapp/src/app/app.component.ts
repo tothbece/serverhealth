@@ -9,17 +9,23 @@ import {ServerHealthService} from "./services/server-health.service";
 })
 export class AppComponent {
   title = 'webapp';
-  public data: HealthData | null;
+  public data: HealthData | null; // last data from server
+  public log: HealthData[] = [] // all previous data
   constructor(private service: ServerHealthService) {
     this.data = null;
   }
 
+  /**
+   * Gets and stores the current data using the ServerHealthService
+   */
   public loadData() {
     this.service.getServerHealth().subscribe((res:any) => {
       this.data = res;
       this.data!.freeMemory /= 1024*1024;
       this.data!.totalMemory /= 1024*1024;
       this.data!.uptime /= 60;
+
+      this.log.push(this.data!);
     });
   }
 

@@ -25,4 +25,32 @@
 
     </div>
   </div>
+  <div class="row mt-3">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Log</h5>
+          <div class="card-text">
+            <table class="table table-striped">
+              <thead>
+              <th scope="col">CPU user</th>
+              <th scope="col">CPU server</th>
+              <th scope="col">Free memory</th>
+              <th scope="col">Uptime</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of log.slice().reverse()">
+                  <td>{{data.cpuUsage.user }}</td>
+                  <td>{{data.cpuUsage.system }}</td>
+                  <td>{{data.freeMemory | number:'1.2-2'}} MB</td>
+                  <td>{{data.uptime | number:'1.2-2' }} min</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
