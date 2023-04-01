@@ -6,7 +6,8 @@ describe('ServerHealthService', () => {
   describe('#start', () => {
     it('should start the server on the specified port', () => {
       const app = {
-        listen: sinon.spy()             // mocking
+        listen: sinon.spy(),             // mocking
+        get: sinon.spy()
       };
       const service = new ServerHealthService(app);
       const port = 3000;
@@ -23,7 +24,7 @@ describe('ServerHealthService', () => {
 
       expect(app.get.calledWith('/status')).to.be.true;
       expect(app.get.calledOnce).to.be.true;
-      expect(app.get.firstCall.args[1].name).to.equal("getStatus");
+      expect(app.get.firstCall.args[1].name).to.equal("bound getStatus");
     });
 
     it('should return server health information', () => {
