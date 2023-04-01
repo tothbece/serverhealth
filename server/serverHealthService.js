@@ -1,12 +1,17 @@
-const express = require('express');   // for web services
+const express = require('express'); // for web services
+const os = require("os");
 
 /**
  * Simple webservice providing information about the server.
  */
 class ServerHealthService {
+
   constructor(app) {
     this.app = app || express(); // receiving mocked object or creating new express application
+    this.app.get('/status', this.getStatus.bind(this));
   }
+
+
 
   /**
    * Starting the webserver.
@@ -16,6 +21,21 @@ class ServerHealthService {
     this.app.listen(port, () => {
       console.log(`Server listening on port ${port}`);
     });
+  }
+
+  /**
+   *
+   * @param req Request object
+   * @param res Response object
+   */
+  getStatus(req, res) {
+    const status = {
+      cpuUsage: process.cpuUsage(),
+      freeMemory: os.freemem(),
+      totalMemory: os.totalmem(),
+      uptime: process.uptime()
+    };
+    res.json(status);
   }
 }
 
