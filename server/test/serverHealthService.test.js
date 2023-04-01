@@ -7,7 +7,8 @@ describe('ServerHealthService', () => {
     it('should start the server on the specified port', () => {
       const app = {
         listen: sinon.spy(),             // mocking
-        get: sinon.spy()
+        get: sinon.spy(),
+        use: sinon.spy()
       };
       const service = new ServerHealthService(app);
       const port = 3000;
@@ -18,7 +19,8 @@ describe('ServerHealthService', () => {
   describe('#getStatus', () => {
     it('should be called when accessing /status GET endpoint', () => {
       const app = {
-        get: sinon.spy()
+        get: sinon.spy(),
+        use: sinon.spy()
       };
       const service = new ServerHealthService(app);
 
